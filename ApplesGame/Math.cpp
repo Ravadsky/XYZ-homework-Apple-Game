@@ -31,18 +31,4 @@ namespace ApplesGame
 			(textSize.top + textSize.height) * relativePosition.y,
 		};
 	}
-
-	bool CheckBit(uint8_t& mask, int digit)
-	{
-		return mask & (1 << digit);
-	}
-
-	void SetMaskBit(uint8_t& mask, int digit, bool state)
-	{
-		if (state)
-			mask |= (1 << digit);   // установить бит
-		else
-			mask &= ~(1 << digit);   // сбросить бит
-	}
-
 }

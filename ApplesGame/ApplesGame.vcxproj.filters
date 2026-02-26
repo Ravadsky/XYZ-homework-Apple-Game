@@ -31,6 +31,9 @@
     <ClCompile Include="GameOptions.cpp">
       <Filter>Sources</Filter>
     </ClCompile>
+    <ClCompile Include="BitOperations.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -55,6 +58,9 @@
       <Filter>Sources</Filter>
     </ClInclude>
     <ClInclude Include="GameOptions.h">
+      <Filter>Sources</Filter>
+    </ClInclude>
+    <ClInclude Include="BitOperations.h">
       <Filter>Sources</Filter>
     </ClInclude>
   </ItemGroup>

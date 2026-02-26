@@ -1,5 +1,6 @@
 #include "Game.h"
 #include "Math.h"
+#include "BitOperations.h"
 #include <assert.h>
 #include <cstdlib>
 
@@ -39,7 +40,6 @@ namespace ApplesGame
 		{
 			InitStone(gameState.stones[i], gameState.stoneTexture);
 		}
-		gameState.OptionsState.ApplesNumber = gameState.OptionsState.isRandomNumberApples ? (rand() % 80 + 20) : NUM_APPLES;
 		gameState.OptionsState.ApplesNumber = CheckBit(gameState.OptionsState.GameOptions, 0) ? (rand() % 80 + 20) : NUM_APPLES;
 
 		gameState.apples.clear();
@@ -91,33 +91,27 @@ namespace ApplesGame
 	{
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num1))
 		{
-			gameState.OptionsState.isRandomNumberApples = true;
-			SetMaskBit(gameState.OptionsState.GameOptions, 0, true);
+			SetBit(gameState.OptionsState.GameOptions, 0, true);
 		}
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num2))
 		{
-			gameState.OptionsState.isRandomNumberApples = false;
-			SetMaskBit(gameState.OptionsState.GameOptions, 0, false);
+			SetBit(gameState.OptionsState.GameOptions, 0, false);
 		}
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num3))
 		{
-			gameState.OptionsState.isEndlessMode = true;
-			SetMaskBit(gameState.OptionsState.GameOptions, 1, true);
+			SetBit(gameState.OptionsState.GameOptions, 1, true);
 		}
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num4))
 		{
-			gameState.OptionsState.isEndlessMode = false;
-			SetMaskBit(gameState.OptionsState.GameOptions, 1, false);
+			SetBit(gameState.OptionsState.GameOptions, 1, false);
 		}
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num5))
 		{
-			gameState.OptionsState.isAccelerated = true;
-			SetMaskBit(gameState.OptionsState.GameOptions, 2, true);
+			SetBit(gameState.OptionsState.GameOptions, 2, true);
 		}
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num6))
 		{
-			gameState.OptionsState.isAccelerated = false;
-			SetMaskBit(gameState.OptionsState.GameOptions, 2, false);
+			SetBit(gameState.OptionsState.GameOptions, 2, false);
 		}
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Enter))
 		{

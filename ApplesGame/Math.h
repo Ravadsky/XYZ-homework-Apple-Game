@@ -16,7 +16,4 @@ namespace ApplesGame
 	sf::Vector2f GetSpriteOrigin(const sf::Sprite& sprite, const Vector2D& relativePosition);
 	sf::Vector2f GetTextOrigin(const sf::Text& text, const Vector2D& relativePosition);
 
-	bool CheckBit(uint8_t& mask, int digit);
-	void SetMaskBit(uint8_t& mask, int digit, bool state);
-
 }
