@@ -4,7 +4,7 @@
 void InitOptionUI(GameOptionsState& OptionsState, const sf::Font& font)
 {
 	OptionsState.OptionsBaseText.setFont(font);
-	OptionsState.OptionsBaseText.setCharacterSize(32);
+	OptionsState.OptionsBaseText.setCharacterSize(20);
 	OptionsState.OptionsBaseText.setFillColor(sf::Color::White);
 	OptionsState.OptionsBaseText.setPosition(50.f, 50.f);
 	AddOptionUIText(OptionsState, "Default variants = No");

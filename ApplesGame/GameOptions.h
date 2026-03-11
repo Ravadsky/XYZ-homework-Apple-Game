@@ -4,7 +4,6 @@
 struct GameOptionsState
 {
 	sf::Text OptionsBaseText;
-	sf::Text RandomApplesSelector;
 	bool ContinueOptions = false;
 
 	int ApplesNumber = 0;

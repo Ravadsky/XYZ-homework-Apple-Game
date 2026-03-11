@@ -34,6 +34,9 @@
     <ClCompile Include="BitOperations.cpp">
       <Filter>Sources</Filter>
     </ClCompile>
+    <ClCompile Include="Leaderboard.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -61,6 +64,9 @@
       <Filter>Sources</Filter>
     </ClInclude>
     <ClInclude Include="BitOperations.h">
+      <Filter>Sources</Filter>
+    </ClInclude>
+    <ClInclude Include="Leaderboard.h">
       <Filter>Sources</Filter>
     </ClInclude>
   </ItemGroup>

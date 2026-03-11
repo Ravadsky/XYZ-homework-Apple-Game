@@ -1,6 +1,7 @@
 #include "UI.h"
 #include "Game.h"
 #include <string>
+#include "Leaderboard.h"
 
 namespace ApplesGame
 {//Инициализировать интерфейс
@@ -11,7 +12,7 @@ namespace ApplesGame
 		uiState.scoreText.setFillColor(sf::Color::Yellow);
 		//инициализировать подсказку для ввода (шрифт, размер шрифта, цвет)
 		uiState.inputHintText.setFont(font);
-		uiState.inputHintText.setCharacterSize(24);
+		uiState.inputHintText.setCharacterSize(16);
 		uiState.inputHintText.setFillColor(sf::Color::White);
 		//установить туда текст в кавычках. В задании 3 исправил стрелочки на ВАСД, тут тоже
 		uiState.inputHintText.setString("Use WASD to move, Space to restart, ESC to exit");
@@ -22,11 +23,20 @@ namespace ApplesGame
 
 		//инициализировать текст конца игры (шрифт, размер шрифта, цвет, стиль, надпись и ориджин)
 		uiState.gameOverText.setFont(font);
-		uiState.gameOverText.setCharacterSize(48);
+		uiState.gameOverText.setCharacterSize(32);
 		uiState.gameOverText.setStyle(sf::Text::Bold);
 		uiState.gameOverText.setFillColor(sf::Color::Red);
 		uiState.gameOverText.setString("GAME OVER");
 		uiState.gameOverText.setOrigin(GetTextOrigin(uiState.gameOverText, { 0.5f, 0.5f }));
+
+
+		uiState.leaderboardText.setFont(font);
+		uiState.leaderboardText.setCharacterSize(16);
+		uiState.leaderboardText.setStyle(sf::Text::Bold);
+		uiState.leaderboardText.setFillColor(sf::Color::White);
+
+		UpdateLeaderboard(uiState.leaderboardText, uiState.Leaderboard);
+		uiState.leaderboardText.setOrigin(GetTextOrigin(uiState.gameOverText, { 0.5f, 0.5f }));
 	}
 	//Обновить интерфейс
 	void UpdateUI(UIState& uiState, const struct GameState& gameState, float timeDelta)
@@ -36,9 +46,12 @@ namespace ApplesGame
 		//Проверка, нужно ли выводить текст конца игры
 		uiState.isGameOverTextVisible = gameState.isGameOver;
 		//Покрасить игровое время в зависимости от того, закончилась ли игра или нет
-		sf::Color gameOverTextColor = (int)gameState.timeSinceGameOver % 2? sf::Color::Red : sf::Color::Yellow;
+		sf::Color gameOverTextColor = (int)gameState.timeSinceGameOver % 2 ? sf::Color::Red : sf::Color::Yellow;
 		//установить заполняющий цвет
 		uiState.gameOverText.setFillColor(gameOverTextColor);
+
+		UpdateLeaderboard(uiState.leaderboardText, uiState.Leaderboard);
+
 	}
 	//отрисовать интерфейс
 	void DrawUI(UIState& uiState, sf::RenderWindow& window)
@@ -53,7 +66,9 @@ namespace ApplesGame
 		if (uiState.isGameOverTextVisible)
 		{   //по центру нарисовать текст конца игры
 			uiState.gameOverText.setPosition(window.getSize().x / 2.f, window.getSize().y / 2.f);
+			uiState.leaderboardText.setPosition(window.getSize().x / 2.f - 140, window.getSize().y / 2.f - 160);
 			window.draw(uiState.gameOverText);
+			window.draw(uiState.leaderboardText);
 		}
 	}
 

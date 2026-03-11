@@ -3,7 +3,7 @@
 #include "BitOperations.h"
 #include <assert.h>
 #include <cstdlib>
-
+#include "Leaderboard.h"
 
 //сделали пространство имен по названию игры
 namespace ApplesGame
@@ -13,7 +13,7 @@ namespace ApplesGame
 		// Инициализация игровых ассетов по их расположению в файлах
 		assert(gameState.playerTexture.loadFromFile(RESOURCES_PATH + "Pacman.png"));
 		assert(gameState.appleTexture.loadFromFile(RESOURCES_PATH + "Apple.png"));
-		assert(gameState.font.loadFromFile(RESOURCES_PATH + "Fonts/Roboto-Regular.ttf"));
+		assert(gameState.font.loadFromFile(RESOURCES_PATH + "Fonts/Hasklig-Regular.ttf"));
 		assert(gameState.stoneTexture.loadFromFile(RESOURCES_PATH + "Stone.png"));
 		assert(gameState.AppleSoundBuffer.loadFromFile(RESOURCES_PATH + "Apple.wav"));
 		assert(gameState.DeathSoundBuffer.loadFromFile(RESOURCES_PATH + "Death.wav"));
@@ -36,6 +36,8 @@ namespace ApplesGame
 		//вызвать инициализацию игрока
 		InitPlayer(gameState.player, gameState.playerTexture);
 		
+		ResetLeaderboard(gameState.uiState.Leaderboard);
+
 		for (int i = 0; i < NUM_STONES; i++)
 		{
 			InitStone(gameState.stones[i], gameState.stoneTexture);
@@ -152,6 +154,7 @@ namespace ApplesGame
 				if (HasPlayerCollisionWithStone(gameState.player, gameState.stones[i]))
 				{
 				gameState.DeathSound.play();
+				gameState.uiState.Leaderboard.push_back({ "Player (You)", gameState.numEatenApples });
 				gameState.isGameOver = true;
 				gameState.timeSinceGameOver = 0.f;
 				}
@@ -161,6 +164,7 @@ namespace ApplesGame
 			if (HasPlayerCollisionWithScreenBorder(gameState.player))
 			{
 				//если да - закончить игру
+				gameState.uiState.Leaderboard.push_back({ "Player (You)", gameState.numEatenApples });
 				gameState.isGameOver = true;
 				gameState.timeSinceGameOver = 0.f;
 			}

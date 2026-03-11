@@ -24,8 +24,8 @@ namespace ApplesGame
 		bool isGameOver = false;
 		float timeSinceGameOver = 0.f;
 
-		// Так же ссылки на игровые ассеты. У всех яблок получается 1 текстурный объект - этакое инстанцирование?
 		sf::Font font;
+
 		sf::Texture playerTexture;
 		sf::Texture appleTexture;
 		sf::Texture stoneTexture;
