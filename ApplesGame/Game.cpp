@@ -36,7 +36,7 @@ namespace ApplesGame
 		//вызвать инициализацию игрока
 		InitPlayer(gameState.player, gameState.playerTexture);
 		
-		ResetLeaderboard(gameState.uiState.Leaderboard);
+		gameState.uiState.Leadersboard.ResetTableData();
 
 		for (int i = 0; i < NUM_STONES; i++)
 		{
@@ -154,7 +154,7 @@ namespace ApplesGame
 				if (HasPlayerCollisionWithStone(gameState.player, gameState.stones[i]))
 				{
 				gameState.DeathSound.play();
-				gameState.uiState.Leaderboard.push_back({ "Player (You)", gameState.numEatenApples });
+				gameState.uiState.Leadersboard.AddRecord("Player (You)", gameState.numEatenApples);
 				gameState.isGameOver = true;
 				gameState.timeSinceGameOver = 0.f;
 				}
@@ -164,7 +164,7 @@ namespace ApplesGame
 			if (HasPlayerCollisionWithScreenBorder(gameState.player))
 			{
 				//если да - закончить игру
-				gameState.uiState.Leaderboard.push_back({ "Player (You)", gameState.numEatenApples });
+				gameState.uiState.Leadersboard.AddRecord("Player (You)", gameState.numEatenApples);
 				gameState.isGameOver = true;
 				gameState.timeSinceGameOver = 0.f;
 			}

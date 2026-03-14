@@ -21,6 +21,7 @@ namespace ApplesGame
 		//¬иден ли текст окончани€ игры
 		uiState.isGameOverTextVisible = false;
 
+		uiState.Leadersboard.InitText(font);
 		//инициализировать текст конца игры (шрифт, размер шрифта, цвет, стиль, надпись и ориджин)
 		uiState.gameOverText.setFont(font);
 		uiState.gameOverText.setCharacterSize(32);
@@ -30,13 +31,6 @@ namespace ApplesGame
 		uiState.gameOverText.setOrigin(GetTextOrigin(uiState.gameOverText, { 0.5f, 0.5f }));
 
 
-		uiState.leaderboardText.setFont(font);
-		uiState.leaderboardText.setCharacterSize(16);
-		uiState.leaderboardText.setStyle(sf::Text::Bold);
-		uiState.leaderboardText.setFillColor(sf::Color::White);
-
-		UpdateLeaderboard(uiState.leaderboardText, uiState.Leaderboard);
-		uiState.leaderboardText.setOrigin(GetTextOrigin(uiState.gameOverText, { 0.5f, 0.5f }));
 	}
 	//ќбновить интерфейс
 	void UpdateUI(UIState& uiState, const struct GameState& gameState, float timeDelta)
@@ -50,8 +44,6 @@ namespace ApplesGame
 		//установить заполн€ющий цвет
 		uiState.gameOverText.setFillColor(gameOverTextColor);
 
-		UpdateLeaderboard(uiState.leaderboardText, uiState.Leaderboard);
-
 	}
 	//отрисовать интерфейс
 	void DrawUI(UIState& uiState, sf::RenderWindow& window)
@@ -60,15 +52,17 @@ namespace ApplesGame
 		uiState.scoreText.setPosition(10.f, 10.f);
 		window.draw(uiState.scoreText);
 		//нарисовать подсказку ввода в правом верхнем углу
-		uiState.inputHintText.setPosition(window.getSize().x, 10.f);
+		uiState.inputHintText.setPosition((float)window.getSize().x, 10.f);
 		window.draw(uiState.inputHintText);
 		//если игра закончена
 		if (uiState.isGameOverTextVisible)
 		{   //по центру нарисовать текст конца игры
 			uiState.gameOverText.setPosition(window.getSize().x / 2.f, window.getSize().y / 2.f);
-			uiState.leaderboardText.setPosition(window.getSize().x / 2.f - 140, window.getSize().y / 2.f - 160);
 			window.draw(uiState.gameOverText);
-			window.draw(uiState.leaderboardText);
+
+			uiState.Leadersboard.LeaderboardText.setOrigin(GetTextOrigin(uiState.Leadersboard.LeaderboardText, { 0.5f, 0.5f }));
+			uiState.Leadersboard.LeaderboardText.setPosition(window.getSize().x / 2.f, window.getSize().y / 2.f + 130);
+			window.draw(uiState.Leadersboard.LeaderboardText);
 		}
 	}
 

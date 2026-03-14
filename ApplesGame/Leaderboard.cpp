@@ -3,55 +3,49 @@
 
 namespace ApplesGame
 {
+	LeaderboardRecord::LeaderboardRecord(std::string _name, int _score) : Name(_name), Score(_score) {}
 
-void UpdateLeaderboard(sf::Text& leaderboard, std::vector<std::pair<std::string, int>>& liderboardtable)
-{
-	sortLeaderboard(liderboardtable);
-
-	leaderboard.setString(""); int counter = 0;
-	AddStringToText(leaderboard, "============== LEADER BOARD ==============");
-	for (std::pair<std::string, int> leader : liderboardtable)
+	bool LeaderboardRecord::operator>(const LeaderboardRecord& other) const
 	{
-		counter++;
-		std::string separator(35 - leader.first.length(), '-');
-		AddStringToText(leaderboard, (std::to_string(counter) + ". " + leader.first + " " + separator + " " + std::to_string(leader.second)));
+		return Score > other.Score;
 	}
-	AddStringToText(leaderboard, "==========================================");
-}
 
-void ResetLeaderboard(std::vector<std::pair<std::string, int>>& liderboardtable)
-{
-	liderboardtable =
+
+	void Leaderboard::ResetTableData()
 	{
-		{"Guts", 1},
-		{"Pudge", NUM_APPLES / 2},
-		{"Alina", NUM_APPLES},
-		{"Bombadil", NUM_APPLES / 3},
-	};
-}
-
-void AddStringToText(sf::Text& textRef, std::string newString)
-{
-	textRef.setString(textRef.getString() + newString + "\n");
-}
-
-void sortLeaderboard(std::vector<std::pair<std::string, int>>& leaderboard)
-{
-	for (size_t i = 0; i < leaderboard.size(); ++i)
-	{
-		size_t maxIndex = i;
-		for (size_t j = i + 1; j < leaderboard.size(); ++j)
-		{
-			if (leaderboard[j].second > leaderboard[maxIndex].second)
-			{
-				maxIndex = j;
-			}
-		}
-
-		if (maxIndex != i)
-		{
-			std::swap(leaderboard[i], leaderboard[maxIndex]);
-		}
+		LeaderboardTable.clear();
+		LeaderboardTable.emplace_back("Alina", NUM_APPLES);
+		LeaderboardTable.emplace_back("Pudge", NUM_APPLES / 2);
+		LeaderboardTable.emplace_back("Guts", NUM_APPLES / 3);
+		LeaderboardTable.emplace_back("BaClan", NUM_APPLES / 5);
 	}
-}
+
+	void Leaderboard::InitText(const sf::Font& font)
+	{
+		LeaderboardText.setFont(font);
+		LeaderboardText.setCharacterSize(16);
+		LeaderboardText.setStyle(sf::Text::Bold);
+		LeaderboardText.setFillColor(sf::Color::White);
+	}
+
+	void Leaderboard::OrganizePrintableText()
+	{
+		LeaderboardText.setString(""); int counter = 0;
+		AddStringToText(LeaderboardText, "============= LEADER  BOARD ==============");
+		for (LeaderboardRecord& Record : LeaderboardTable)
+		{
+			counter++;
+			std::string separator(35 - Record.Name.length(), '-');
+			AddStringToText(LeaderboardText, std::to_string(counter) + ". " + Record.Name + " " + separator + " " + std::to_string(Record.Score));
+		}
+		AddStringToText(LeaderboardText, "==========================================");
+	}
+
+	void Leaderboard::AddRecord(std::string&& Name, int& Score)
+	{
+		LeaderboardTable.emplace_back(Name, Score);
+		sortVector(LeaderboardTable);
+		OrganizePrintableText();
+	}
+
 }

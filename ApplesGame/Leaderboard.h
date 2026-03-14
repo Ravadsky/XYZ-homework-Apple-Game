@@ -2,16 +2,31 @@
 #include <SFML/Graphics.hpp>
 #include <vector>
 #include <string>
+#include "Utils.h"
+#include "GameSettings.h"
+#include "Math.h"
 
 namespace ApplesGame
 {
+	struct LeaderboardRecord
+	{
+		std::string Name;
+		int Score;
 
-	void UpdateLeaderboard(sf::Text& leaderboard, std::vector<std::pair<std::string, int>>& liderboardtable);
+		LeaderboardRecord(std::string _name, int _score);
+		bool operator>(const LeaderboardRecord& other) const;
+	};
 
-	void ResetLeaderboard(std::vector<std::pair<std::string, int>>& liderboardtable);
+	struct Leaderboard
+	{
+		sf::Text LeaderboardText;
+		std::vector<LeaderboardRecord> LeaderboardTable;
 
-	void AddStringToText(sf::Text& textRef, std::string newString);
-
-	void sortLeaderboard(std::vector<std::pair<std::string, int>>& leaderboard);
+		void ResetTableData();
+		void InitText(const sf::Font& font);
+		void OrganizePrintableText();
+		void AddRecord(std::string&& Name, int& Score);
+	};
+	
 
 }
